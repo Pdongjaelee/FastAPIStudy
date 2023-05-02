@@ -2,7 +2,9 @@ import requests
 import time
 import os
 import threading
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
+
+# multi-proces를 사용하려면 위의 ProcessPoolExecutor 를 import 한다.
 
 def fetcher(params):
     seesion = params[0]
@@ -15,7 +17,7 @@ def fetcher(params):
 def main():
     urls = ["https://google.com", "https://apple.com"] * 50
 
-    executor = ThreadPoolExecutor(max_workers=10)
+    executor = ProcessPoolExecutor(max_workers=10)
 
     with requests.Session() as session:
         # result = [fetcher(session, url) for url in urls]
